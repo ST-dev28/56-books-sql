@@ -62,7 +62,6 @@ Author.findByFirstname = async (connection, authorFirstname) => {
     }
 }
 
-
 Author.findByLastname = async (connection, authorLastname) => {
     const sql = 'SELECT * FROM `authors` WHERE `lastname` LIKE "%' + authorLastname + '%"';
     const [rows] = await connection.execute(sql);
