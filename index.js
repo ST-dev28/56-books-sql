@@ -22,10 +22,13 @@ app.init = async () => {
     const paula = await Author.create(conn, 'Paula', 'Paulaviciute');
     console.log(autorius);
 
-    await Author.listAll(conn);
+    const authors = await Author.listAll(conn);
+    console.log(authors);
 
-    await Author.findById(conn, 1);
+    const authorById = await Author.findById(conn, 2);
+    console.log(authorById);
 
+    await Author.findByFirstname(conn,);
 
 }
 

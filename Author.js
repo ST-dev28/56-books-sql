@@ -14,15 +14,36 @@ Author.create = async (connection, authorFirstname, authorLastname) => {
                 (`id`, `firstname`, `lastname`)\
                 VALUES (NULL, "' + authorFirstname + '", "' + authorLastname + '")';
     const [rows] = await connection.execute(sql);
-    const resp = `${authorFirstname} ${authorLastname} buvo sekmingai itrauktas i sarasa!`
-    //console.log(resp);
-    return resp;
+    return `${authorFirstname} ${authorLastname} buvo sekmingai itrauktas i sarasa!`;
 }
 
+const infoList = [];
 Author.listAll = async (connection) => {
+    const sql = 'SELECT * FROM `authors`';
+    const [rows] = await connection.execute(sql);
+    let i = 0;
+    for (let { firstname, lastname } of rows) {
+        infoList.push(`${++i}. ${firstname} ${lastname}`);
+
+    }
+    const firstLine = 'Autoriu sarasas: \n';
+    return firstLine + infoList.join('\n');
+    //console.log(title + infoList.join('\n'));
 }
 
 Author.findById = async (connection, authorId) => {
+    const sql = 'SELECT * FROM `authors` WHERE `id` = ' + authorId;
+    const [rows] = await connection.execute(sql);
+
+    if (rows.length === 0) {
+        return 'Tokio autoriaus nera!';
+    } else {
+        const firstLine = 'Pasirinktas autorius: \n';
+        const name = rows[0].firstname;
+        const surname = rows[0].lastname;
+        const author = `${name} ${surname}`;
+        return firstLine + author;
+    }
 }
 
 Author.findByFirstname = async (connection, authorFirstname) => {
