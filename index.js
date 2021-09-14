@@ -36,6 +36,9 @@ app.init = async () => {
 
     const updateById = await Author.updatePropertyById(conn, 3)
     console.log(updateById);
+
+    const deleteAuthor = await Author.delete(conn, 1);
+    console.log(deleteAuthor);
 }
 
 app.init();

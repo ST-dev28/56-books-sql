@@ -18,6 +18,12 @@ Author.create = async (connection, authorFirstname, authorLastname) => {
     return `${authorFirstname} ${authorLastname} buvo sekmingai itrauktas i sarasa!`;
 }
 
+/**
+ * Visu autoriu sarasas.
+ * @param {object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
+ * @returns {Promise<Object[]>} Tekstas nurodantis autoriu sarasa.
+ */
+
 const infoList = [];
 Author.listAll = async (connection) => {
     const sql = 'SELECT * FROM `authors`';
@@ -31,6 +37,13 @@ Author.listAll = async (connection) => {
     return firstLine + infoList.join('\n');
     //console.log(title + infoList.join('\n'));
 }
+
+/**
+ * Autoriaus itrukimas i duombaze.
+ * @param {Object} connection   Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
+ * @param {number} authorId Autoriaus ID.
+ * @returns {Promise<string>} Tekstas nurodo autoriaus duomenis.
+ */
 
 Author.findById = async (connection, authorId) => {
     const sql = 'SELECT * FROM `authors` WHERE `id` = ' + authorId;
@@ -47,6 +60,13 @@ Author.findById = async (connection, authorId) => {
     }
 }
 
+/**
+ * Autoriaus paieska pagal varda.
+ * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
+ * @param {string} authorFirstname Autoriaus vardas.
+ * @returns {Promise<string>} Tekstas nurodo autoriaus duomenis.
+ */
+
 Author.findByFirstname = async (connection, authorFirstname) => {
     const sql = 'SELECT * FROM `authors` WHERE `firstname` LIKE "%' + authorFirstname + '%"';
     const [rows] = await connection.execute(sql);
@@ -61,6 +81,13 @@ Author.findByFirstname = async (connection, authorFirstname) => {
         return firstLine + author;
     }
 }
+
+/**
+ * Autoriaus paieska pagal pavarde.
+ * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
+ * @param {string} authorLastname Autoriaus pavarde.
+ * @returns {Promise<string>} Tekstas nurodo autoriaus duomenis.
+ */
 
 Author.findByLastname = async (connection, authorLastname) => {
     const sql = 'SELECT * FROM `authors` WHERE `lastname` LIKE "%' + authorLastname + '%"';
