@@ -28,8 +28,14 @@ app.init = async () => {
     const authorById = await Author.findById(conn, 2);
     console.log(authorById);
 
-    await Author.findByFirstname(conn,);
+    const authorByName = await Author.findByFirstname(conn, 'Paula');
+    console.log(authorByName);
 
+    const authorBySurname = await Author.findByLastname(conn, 'Jonaitis');
+    console.log(authorBySurname);
+
+    const updateById = await Author.updatePropertyById(conn, 3)
+    console.log(updateById);
 }
 
 app.init();
