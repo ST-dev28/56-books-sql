@@ -13,7 +13,20 @@ app.init = async () => {
     });
 
     // LOGIC BELOW
-    await Author.create(conn, 'Vardenis', 'Pavardenis');
+
+
+    const autorius = await Author.create(conn, 'Vardenis', 'Pavardenis');
+    await Author.create(conn, 'Mike', 'Pukuotukas');
+    await Author.create(conn, 'Jonas', 'Jonaitis');
+    await Author.create(conn, 'Ona', 'Onaite');
+    const paula = await Author.create(conn, 'Paula', 'Paulaviciute');
+    console.log(autorius);
+
+    await Author.listAll(conn);
+
+    await Author.findById(conn, 1);
+
+
 }
 
 app.init();
