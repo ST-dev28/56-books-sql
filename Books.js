@@ -14,7 +14,7 @@ const Books = {};
  * @returns {Promise<string>} Tekstas, apibudinantis, koks autorius ir kurias metais isleido knyga.
  */
 Books.create = async (connection, authorId, bookName, bookReleaseYear) => {
-    sql = 'INSERT INTO books (author_id,book_name, release_year)\
+    sql = 'INSERT INTO books (authorId,title, releaseYear)\
     VALUES ("'+ authorId + '", "' + bookName + '", "' + bookReleaseYear + '")';
     [rows] = await connection.execute(sql);
     const createBook = `Was added to the book list: author with ID ${authorId}, book title "${bookName}", release year ${bookReleaseYear}.`
@@ -27,6 +27,15 @@ Books.create = async (connection, authorId, bookName, bookReleaseYear) => {
  * @returns {Promise<Object[]>} Tekstas, apibudinantis, koks autorius ir kurias metais isleido knyga.
  */
 Books.listAll = async (connection) => {
+    sql = 'SELECT * FROM books';
+    [rows] = await connection.execute(sql);
+    const booksList = [];
+    let i = 0;
+    for (const book of rows) {
+        booksList.push(`${++i}. Author_Id ${book.authorId}, "${book.title}", year ${book.releaseYear}.`);
+    }
+    const firstLine = 'List of books: \n';
+    return firstLine + booksList.join('\n');
 }
 
 /**
@@ -36,6 +45,7 @@ Books.listAll = async (connection) => {
  * @returns {Promise<Object[]>} Sarasas su knygu objektais.
  */
 Books.findByName = async (connection, bookName) => {
+
 }
 
 Books.findByYear = async (connection, bookReleaseYear) => {
