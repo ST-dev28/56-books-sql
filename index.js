@@ -77,6 +77,9 @@ app.init = async () => {
     const byBookYear = await Books.findByYear(conn, 1981)
     console.log(byBookYear);
 
+    console.log('');
+    const updatedBookByID = await Books.updateById(conn, 1, 'title', 'Audra Ramiajame vandenyne')
+    console.log(updatedBookByID);
 
 }
 
