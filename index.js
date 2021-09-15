@@ -74,6 +74,8 @@ app.init = async () => {
     console.log(book7);
     const book8 = await Books.create(conn, 7, 'Nesamone', 1984);
     console.log(book8);
+    const book9 = await Books.create(conn, 2, 'Uzuoveja', 1984);
+    console.log(book9);
 
     console.log('');
     const listOfBooks = await Books.listAll(conn)
@@ -82,6 +84,10 @@ app.init = async () => {
     console.log('');
     const byBookName = await Books.findByName(conn, 'Tyla')
     console.log(byBookName);
+
+    console.log('');
+    const byBookAuthorId = await Books.findByAuthorId(conn, 2)
+    console.log(byBookAuthorId);
 
     console.log('');
     const byBookYear = await Books.findByYear(conn, 1981)
@@ -108,6 +114,10 @@ app.init = async () => {
     console.log('');
     const deletedBookByAuthorId = await Books.deleteAllByAuthorId(conn, 7)
     console.log(deletedBookByAuthorId);
+
+    console.log('');
+    //const byBookAuthorId = await Books.findByAuthorId(conn, 2)
+    //console.log(byBookAuthorId);
 }
 
 app.init();

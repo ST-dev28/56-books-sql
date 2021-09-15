@@ -50,6 +50,25 @@ Books.findByName = async (connection, bookName) => {
     const byTitle = `Book "${bookName}" is written by author_Id ${rows[0].authorId}, released in year ${rows[0].releaseYear}.`;
     return byTitle;
 }
+
+/**
+ * Knygos paieska pagal autoriaus ID.
+ * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
+ * @param {string} bookName Knygos pavadinimas.
+ * @returns {Promise<string>} Tekstas su knygos duomenimis..
+ */
+Books.findByAuthorId = async (connection, authorId) => {
+    sql = 'SELECT * FROM `books` WHERE `authorId` =' + authorId;
+    [rows] = await connection.execute(sql);
+
+    const booksListByAuthorId = [];
+    let i = 0;
+    for (const book of rows) {
+        booksListByAuthorId.push(`${++i}. "${book.title}", year ${book.releaseYear}.`);
+    }
+    return `List of books by author ID ${authorId}: \n` + booksListByAuthorId.join('\n');
+}
+
 /**
  * Knygos paieska pagal metus.
  * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
