@@ -49,11 +49,10 @@ Author.findById = async (connection, authorId) => {
     if (rows.length === 0) {
         return 'Tokio autoriaus nera!';
     } else {
-        const firstLine = 'Pasirinktas autorius pagal ID: \n';
         const name = rows[0].firstname;
         const surname = rows[0].lastname;
         const author = `${name} ${surname}`;
-        return firstLine + author;
+        return `Pasirinktas autorius pagal ID yra ${author}`;;
     }
 }
 /**
@@ -69,11 +68,10 @@ Author.findByFirstname = async (connection, authorFirstname) => {
     if (rows.length === 0) {
         return 'Tokio autoriaus nera!';
     } else {
-        const firstLine = 'Pasirinktas autorius pagal varda: \n';
         const name = rows[0].firstname;
         const surname = rows[0].lastname;
         const author = `${name} ${surname}`;
-        return firstLine + author;
+        return `Pasirinktas autorius pagal VARDA yra ${author}`;
     }
 }
 /**
@@ -89,18 +87,27 @@ Author.findByLastname = async (connection, authorLastname) => {
     if (rows.length === 0) {
         return 'Tokio autoriaus nera!';
     } else {
-        const firstLine = 'Pasirinktas autorius pagal pavarde: \n';
         const name = rows[0].firstname;
         const surname = rows[0].lastname;
         const author = `${name} ${surname}`;
-        return firstLine + author;
+        return `Pasirinktas autorius pagal PAVARDE yra ${author}`;
     }
 }
 
 Author.updatePropertyById = async (connection, authorId, propertyName, propertyValue) => {
-}
 
+}
+/**
+ * Autoriaus paieska pagal pavarde.
+ * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
+ * @param {number} authorId Autoriaus ID.
+ * @returns {Promise<string>} Tekstas nurodo autoriaus duomenis.
+ */
 Author.delete = async (connection, authorId) => {
+    const sql = 'DELETE FROM `authors` WHERE `id` = ' + authorId;
+    const [rows] = await connection.execute(sql);
+    const deletedAuthor = `Author with ID "${authorId}" has been removed from the list.`;
+    return deletedAuthor;
 }
 
 module.exports = Author;
