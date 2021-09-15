@@ -71,7 +71,7 @@ app.init = async () => {
 
     console.log('');
     const byBookName = await Books.findByName(conn, 'Tyla')
-    //console.log(byBookName);
+    console.log(byBookName);
 
     console.log('');
     const byBookYear = await Books.findByYear(conn, 1981)

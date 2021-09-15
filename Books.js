@@ -45,7 +45,10 @@ Books.listAll = async (connection) => {
  * @returns {Promise<Object[]>} Sarasas su knygu objektais.
  */
 Books.findByName = async (connection, bookName) => {
-
+    sql = 'SELECT * FROM `books` WHERE `title` = "' + bookName + '"';
+    [rows] = await connection.execute(sql);
+    const byTitle = `Book "${bookName}" is written by author_Id ${rows[0].authorId}, released in year ${rows[0].releaseYear}.`;
+    return byTitle;
 }
 
 Books.findByYear = async (connection, bookReleaseYear) => {
