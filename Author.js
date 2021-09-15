@@ -93,10 +93,34 @@ Author.findByLastname = async (connection, authorLastname) => {
         return `Pasirinktas autorius pagal PAVARDE yra ${author}`;
     }
 }
-
+/**
+ *
+ * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
+ * @param {number} authorId Autoriaus ID.
+ * @param {string} propertyName Atnaujinamos savybes pavadinimas.
+ * @param {string} propertyValue Atnaujinamos savybes verte.
+ * @returns { Promise < string >} Tekstas, skelbiantis kokia savybe, pagal duota ID, buvo atnaujinta i kokia verte.
+ */
 Author.updatePropertyById = async (connection, authorId, propertyName, propertyValue) => {
-
+    sql = 'UPDATE authors SET ' + propertyName + ' = "' + propertyValue + '" WHERE authors.id =' + authorId;
+    [rows] = await connection.execute(sql);
+    const updated = `Author, whose ID is ${authorId},  ${propertyName} was changed to ${propertyValue}.`
+    return updated;
 }
+/*const sql = 'SELECT * FROM `authors`';
+let [rows] = await connection.execute(sql);
+const a = Object.keys(rows[0]);
+
+const sql1 = 'UPDATE `authors`\
+SET `'+ propertyName + '` = "' + propertyValue + '"\
+WHERE `authors`.`id` = ' + authorId;
+[rows] = await connection.execute(sql1);
+if (rows.effectedRows === 0) {
+    return `Pagal nurodyta ID ${authorId} autorius nerastas!`
+} else {
+    return `Autoriaus duomenys atnaujinti.`
+}*/
+
 /**
  * Autoriaus paieska pagal pavarde.
  * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.

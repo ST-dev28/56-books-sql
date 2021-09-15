@@ -39,12 +39,16 @@ app.init = async () => {
     console.log(authorBySurname);
 
     console.log('');
-    const updateById = await Author.updatePropertyById(conn, 4, 1, 1)
-    //console.log(updateById);
+    const updateById = await Author.updatePropertyById(conn, 3, 'firstname', 'Onyte')
+    console.log(updateById);
 
     console.log('');
     const deleteAuthor = await Author.delete(conn, 1);
     console.log(deleteAuthor);
+
+    console.log('');
+    const knyga = await Books.create(conn, 2, 'Tyla', 1980);
+    console.log(knyga);
 }
 
 app.init();
