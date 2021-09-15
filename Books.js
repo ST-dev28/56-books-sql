@@ -108,8 +108,17 @@ Books.updateYearById = async (connection, bookId, bookReleaseYear) => {
     const updatedBookYearByID = `Book with ID ${bookId} has a new release year ${bookReleaseYear} now."`
     return updatedBookYearByID;
 }
-
+/**
+ * Knygos atnaujinimas pagal ID ir kita uzduota parametra.
+ * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
+ * @param {number} bookId Knygos ID.
+ *  @returns {Promise<string>} Tekstas su knygos duomenimis.
+ */
 Books.delete = async (connection, bookId) => {
+    sql = 'DELETE FROM books WHERE books.id =' + bookId;
+    [rows] = await connection.execute(sql);
+    const deletedBook = `Book with ID ${bookId} has been removed from books list!`
+    return deletedBook;
 }
 
 Books.deleteAllByAuthorId = async (connection, authorId) => {

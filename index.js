@@ -64,6 +64,8 @@ app.init = async () => {
     console.log(book4);
     const book5 = await Books.create(conn, 2, 'Laukas', 1981);
     console.log(book5);
+    const book6 = await Books.create(conn, 2, 'Nesamone', 1981);
+    console.log(book6);
 
     console.log('');
     const listOfBooks = await Books.listAll(conn)
@@ -90,8 +92,8 @@ app.init = async () => {
     console.log(updatedYearById);
 
     console.log('');
-    const deletedBook = await Books.delete(conn, 3)
-    //console.log(deletedBook);
+    const deletedBook = await Books.delete(conn, 6)
+    console.log(deletedBook);
 
     console.log('');
     const deletedBookByAuthor = await Books.deleteAllByAuthorId(conn, 2)
