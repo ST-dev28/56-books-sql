@@ -58,7 +58,7 @@ app.init = async () => {
     console.log(book1);
     const book2 = await Books.create(conn, 3, 'Tyla', 1980);
     console.log(book2);
-    const book3 = await Books.create(conn, 4, 'Miskas', 1990);
+    const book3 = await Books.create(conn, 4, 'Miskas', 1981);
     console.log(book3);
     const book4 = await Books.create(conn, 5, 'Pieva', 1991);
     console.log(book4);
@@ -75,7 +75,7 @@ app.init = async () => {
 
     console.log('');
     const byBookYear = await Books.findByYear(conn, 1981)
-    //console.log(byBookYear);
+    console.log(byBookYear);
 
 
 }
