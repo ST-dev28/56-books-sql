@@ -81,6 +81,21 @@ app.init = async () => {
     const updatedBookByID = await Books.updateById(conn, 1, 'title', 'Audra Ramiajame vandenyne')
     console.log(updatedBookByID);
 
+    console.log('');
+    const updatedTitleById = await Books.updateNameById(conn, 2, 'Tyla dykumoje')
+    console.log(updatedTitleById);
+
+    console.log('');
+    const updatedYearById = await Books.updateYearById(conn, 4, 1991)
+    console.log(updatedYearById);
+
+    console.log('');
+    const deletedBook = await Books.delete(conn, 3)
+    //console.log(deletedBook);
+
+    console.log('');
+    const deletedBookByAuthor = await Books.deleteAllByAuthorId(conn, 2)
+    //console.log(deletedBookByAuthor);
 }
 
 app.init();

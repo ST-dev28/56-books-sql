@@ -42,7 +42,7 @@ Books.listAll = async (connection) => {
  * Knygos paieska pagal pavadinima.
  * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
  * @param {string} bookName Knygos pavadinimas.
- * @returns {Promise<Object[]>} Sarasas su knygu objektais.
+ * @returns {Promise<string>} Tekstas su knygos duomenimis..
  */
 Books.findByName = async (connection, bookName) => {
     sql = 'SELECT * FROM `books` WHERE `title` = "' + bookName + '"';
@@ -82,11 +82,31 @@ Books.updateById = async (connection, bookId, propertyName, propertyValue) => {
     const updatedBookByID = `Book with ID ${bookId} got ${propertyName} changed to "${propertyValue}."`
     return updatedBookByID;
 }
-
+/**
+ * Knygos atnaujinimas pagal ID ir kita uzduota parametra.
+ * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
+ * @param {number} bookId Knygos ID.
+ * @param {string} bookName Atnaujinamos savybes pavadinimas.
+ *  @returns {Promise<string>} Tekstas su knygos duomenimis.
+ */
 Books.updateNameById = async (connection, bookId, bookName) => {
+    sql = 'UPDATE books SET title = "' + bookName + '" WHERE books.id =' + bookId;
+    [rows] = await connection.execute(sql);
+    const updatedTitleById = `Book with ID ${bookId} has a new title now as "${bookName}."`
+    return updatedTitleById;
 }
-
+/**
+ * Knygos atnaujinimas pagal ID ir kita uzduota parametra.
+ * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
+ * @param {number} bookId Knygos ID.
+ * @param {number} bookReleaseYear Knygos isleidimo metai.
+ *  @returns {Promise<string>} Tekstas su knygos duomenimis.
+ */
 Books.updateYearById = async (connection, bookId, bookReleaseYear) => {
+    sql = 'UPDATE books SET releaseYear = "' + bookReleaseYear + '" WHERE books.id =' + bookId;
+    [rows] = await connection.execute(sql);
+    const updatedBookYearByID = `Book with ID ${bookId} has a new release year ${bookReleaseYear} now."`
+    return updatedBookYearByID;
 }
 
 Books.delete = async (connection, bookId) => {
