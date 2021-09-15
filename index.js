@@ -27,6 +27,8 @@ app.init = async () => {
     console.log(autorius5);
     const autorius6 = await Author.create(conn, 'Zigmas', 'Zigmutis');
     console.log(autorius6);
+    const autorius7 = await Author.create(conn, 'Nezinomas', 'NON');
+    console.log(autorius7);
 
 
     console.log('');
@@ -48,6 +50,8 @@ app.init = async () => {
     console.log('');
     const updateById = await Author.updatePropertyById(conn, 3, 'firstname', 'Onyte')
     console.log(updateById);
+    const updateById1 = await Author.updatePropertyById(conn, 7, 'lastname', 'Anonimas')
+    console.log(updateById1);
 
     console.log('');
     const deleteAuthor = await Author.delete(conn, 1);
@@ -66,6 +70,10 @@ app.init = async () => {
     console.log(book5);
     const book6 = await Books.create(conn, 2, 'Nesamone', 1981);
     console.log(book6);
+    const book7 = await Books.create(conn, 7, 'NS', 1983);
+    console.log(book7);
+    const book8 = await Books.create(conn, 7, 'Nesamone', 1984);
+    console.log(book8);
 
     console.log('');
     const listOfBooks = await Books.listAll(conn)
@@ -86,6 +94,8 @@ app.init = async () => {
     console.log('');
     const updatedTitleById = await Books.updateNameById(conn, 2, 'Tyla dykumoje')
     console.log(updatedTitleById);
+    const updatedTitleById1 = await Books.updateNameById(conn, 8, 'Nezinomybe')
+    console.log(updatedTitleById1);
 
     console.log('');
     const updatedYearById = await Books.updateYearById(conn, 4, 1991)
@@ -96,8 +106,8 @@ app.init = async () => {
     console.log(deletedBook);
 
     console.log('');
-    const deletedBookByAuthor = await Books.deleteAllByAuthorId(conn, 2)
-    //console.log(deletedBookByAuthor);
+    const deletedBookByAuthorId = await Books.deleteAllByAuthorId(conn, 7)
+    console.log(deletedBookByAuthorId);
 }
 
 app.init();

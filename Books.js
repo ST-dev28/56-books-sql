@@ -83,7 +83,7 @@ Books.updateById = async (connection, bookId, propertyName, propertyValue) => {
     return updatedBookByID;
 }
 /**
- * Knygos atnaujinimas pagal ID ir kita uzduota parametra.
+ * Knygos atnaujinimas pagal pavadinima.
  * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
  * @param {number} bookId Knygos ID.
  * @param {string} bookName Atnaujinamos savybes pavadinimas.
@@ -96,7 +96,7 @@ Books.updateNameById = async (connection, bookId, bookName) => {
     return updatedTitleById;
 }
 /**
- * Knygos atnaujinimas pagal ID ir kita uzduota parametra.
+ * Knygos atnaujinimas pagal metus.
  * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
  * @param {number} bookId Knygos ID.
  * @param {number} bookReleaseYear Knygos isleidimo metai.
@@ -109,7 +109,7 @@ Books.updateYearById = async (connection, bookId, bookReleaseYear) => {
     return updatedBookYearByID;
 }
 /**
- * Knygos atnaujinimas pagal ID ir kita uzduota parametra.
+ * Knygos istrynimas pagal ID.
  * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
  * @param {number} bookId Knygos ID.
  *  @returns {Promise<string>} Tekstas su knygos duomenimis.
@@ -120,8 +120,17 @@ Books.delete = async (connection, bookId) => {
     const deletedBook = `Book with ID ${bookId} has been removed from books list!`
     return deletedBook;
 }
-
+/**
+ * Visu knygu istrynimas pagal autoriaus ID.
+ * @param {Object} connection Objektas, su kuriuo kvieciame duombazes mainpuliavimo metodus.
+ * @param {number} authorId Autoriaus ID.
+ *  @returns {Promise<string>} Tekstas su knygos duomenimis.
+ */
 Books.deleteAllByAuthorId = async (connection, authorId) => {
+    sql = 'DELETE FROM books WHERE authorId =' + authorId;
+    [rows] = await connection.execute(sql);
+    const deletedBookByAuthorId = `All books of author ID ${authorId} have been deleted from books list.`
+    return deletedBookByAuthorId;
 }
 
 module.exports = Books;
