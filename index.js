@@ -47,8 +47,12 @@ app.init = async () => {
     console.log(deleteAuthor);
 
     console.log('');
-    const knyga = await Books.create(conn, 2, 'Tyla', 1980);
-    console.log(knyga);
+    const book1 = await Books.create(conn, 2, 'Audra', 1970);
+    console.log(book1);
+    const book2 = await Books.create(conn, 3, 'Tyla', 1980);
+    console.log(book2);
+    const book3 = await Books.create(conn, 4, 'Miskas', 1990);
+    console.log(book3);
 }
 
 app.init();
