@@ -38,7 +38,7 @@ Books.create = async (connection, authorId, bookName, bookReleaseYear) => {
  * @returns {Promise<Object[]>} Tekstas, apibudinantis, koks autorius ir kurias metais isleido knyga.
  */
 Books.listAll = async (connection) => {
-    const sql = 'SELECT * FROM books';
+    const sql = 'SELECT * FROM books ORDER BY `authorId`';
     const [rows] = await connection.execute(sql);
     const booksList = [];
     let i = 0;
