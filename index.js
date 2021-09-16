@@ -21,7 +21,7 @@ app.init = async () => {
     console.log(autorius2);
     const autorius3 = await Author.create(conn, 'Jonas', 'Jonaitis');
     console.log(autorius3);
-    const autorius4 = await Author.create(conn, 'Ona', 'Onyte');
+    const autorius4 = await Author.create(conn, 'Ona', 'Onaityte');
     console.log(autorius4);
     const autorius5 = await Author.create(conn, 'Paula', 'Paulaviciute');
     console.log(autorius5);

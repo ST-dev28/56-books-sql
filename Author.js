@@ -79,7 +79,6 @@ Author.findById = async (connection, authorId) => {
  */
 Author.findByFirstname = async (connection, authorFirstname) => {
     //VALIDATION:
-
     if (!Validation.isValidFirstName(authorFirstname)) {
 
         return `Parametras turi buti ne tuscias tekstas!`;
@@ -105,12 +104,9 @@ Author.findByFirstname = async (connection, authorFirstname) => {
  */
 Author.findByLastname = async (connection, authorLastname) => {
     //VALIDATION:
-    if (typeof authorId !== 'number') {
-        return `Autoriaus ID turi buti skaicius!`
-    }
-    if (typeof propertyName !== 'string' ||
-        typeof propertyValue !== 'string') {
-        return `Parametras turi buti tekstas!`
+    if (!Validation.isValidFirstName(authorLastname)) {
+
+        return `Parametras turi buti ne tuscias tekstas!`;
     }
 
     const sql = 'SELECT * FROM `authors` WHERE `lastname` LIKE "%' + authorLastname + '%"';
@@ -146,6 +142,15 @@ Author.updatePropertyById = async (connection, authorId, propertyName, propertyV
 
         return `Parametras turi buti ne tuscias tekstas!`;
     }
+
+    /*if (typeof authorId !== 'number') {
+       return `Autoriaus ID turi buti skaicius!`
+   }
+   if (typeof propertyName !== 'string' ||
+       typeof propertyValue !== 'string') {
+       return `Parametras turi buti tekstas!`
+   }*/
+
     sql = 'UPDATE authors SET ' + propertyName + ' = "' + propertyValue + '" WHERE authors.id =' + authorId;
     [rows] = await connection.execute(sql);
     const updated = `Author, whose ID is ${authorId},  ${propertyName} was changed to ${propertyValue}.`
