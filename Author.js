@@ -1,3 +1,4 @@
+const Validation = require('./Validations');
 const Author = {};
 
 /**
@@ -10,10 +11,20 @@ const Author = {};
  */
 Author.create = async (connection, authorFirstname, authorLastname) => {
     //console.log(authorFirstname, authorLastname);
+    //validation
+    if (!Validation.isText(authorFirstname)) {
+
+        return `Parametras turi buti ne tuscias tekstas!`;
+    }
+    if (!Validation.isText(authorLastname)) {
+
+        return `Parametras turi buti ne tuscias tekstas!`;
+    }
+
     const sql = 'INSERT INTO `authors`\
                 (`id`, `firstname`, `lastname`)\
                 VALUES (NULL, "' + authorFirstname + '", "' + authorLastname + '")';
-    const [rows] = await connection.execute(sql);
+    [rows] = await connection.execute(sql);
     return `${authorFirstname} ${authorLastname} buvo sekmingai itrauktas i sarasa!`;
 }
 
@@ -43,6 +54,11 @@ Author.listAll = async (connection) => {
  * @returns {Promise<string>} Tekstas nurodo autoriaus duomenis.
  */
 Author.findById = async (connection, authorId) => {
+    //validation
+    if (!Validation.IDisValid(authorId)) {
+
+        return `Autoriaus ID turi buti teigiamas sveikasis skaicius!`;
+    }
     const sql = 'SELECT * FROM `authors` WHERE `id` = ' + authorId;
     const [rows] = await connection.execute(sql);
 
@@ -62,6 +78,13 @@ Author.findById = async (connection, authorId) => {
  * @returns {Promise<string>} Tekstas nurodo autoriaus duomenis.
  */
 Author.findByFirstname = async (connection, authorFirstname) => {
+    //VALIDATION:
+
+    if (!Validation.isValidFirstName(authorFirstname)) {
+
+        return `Parametras turi buti ne tuscias tekstas!`;
+    }
+
     const sql = 'SELECT * FROM `authors` WHERE `firstname` LIKE "%' + authorFirstname + '%"';
     const [rows] = await connection.execute(sql);
 
@@ -81,6 +104,15 @@ Author.findByFirstname = async (connection, authorFirstname) => {
  * @returns {Promise<string>} Tekstas nurodo autoriaus duomenis.
  */
 Author.findByLastname = async (connection, authorLastname) => {
+    //VALIDATION:
+    if (typeof authorId !== 'number') {
+        return `Autoriaus ID turi buti skaicius!`
+    }
+    if (typeof propertyName !== 'string' ||
+        typeof propertyValue !== 'string') {
+        return `Parametras turi buti tekstas!`
+    }
+
     const sql = 'SELECT * FROM `authors` WHERE `lastname` LIKE "%' + authorLastname + '%"';
     const [rows] = await connection.execute(sql);
 
@@ -102,6 +134,18 @@ Author.findByLastname = async (connection, authorLastname) => {
  * @returns { Promise < string >} Tekstas, skelbiantis kokia savybe, pagal duota ID, buvo atnaujinta i kokia verte.
  */
 Author.updatePropertyById = async (connection, authorId, propertyName, propertyValue) => {
+    if (!Validation.IDisValid(authorId)) {
+
+        return `Autoriaus ID turi buti teigiamas sveikasis skaicius!`;
+    }
+    if (!Validation.isText(propertyName)) {
+
+        return `Parametras turi buti ne tuscias tekstas!`;
+    }
+    if (!Validation.isText(propertyValue)) {
+
+        return `Parametras turi buti ne tuscias tekstas!`;
+    }
     sql = 'UPDATE authors SET ' + propertyName + ' = "' + propertyValue + '" WHERE authors.id =' + authorId;
     [rows] = await connection.execute(sql);
     const updated = `Author, whose ID is ${authorId},  ${propertyName} was changed to ${propertyValue}.`
@@ -115,8 +159,13 @@ Author.updatePropertyById = async (connection, authorId, propertyName, propertyV
  * @returns {Promise<string>} Tekstas nurodo autoriaus duomenis.
  */
 Author.delete = async (connection, authorId) => {
+    //VALIDATION:
+    if (!Validation.IDisValid(authorId)) {
+
+        return `Autoriaus ID turi buti teigiamas sveikasis skaicius!`;
+    }
     const sql = 'DELETE FROM `authors` WHERE `id` = ' + authorId;
-    const [rows] = await connection.execute(sql);
+    [rows] = await connection.execute(sql);
     const deletedAuthor = `Author with ID "${authorId}" has been removed from the list.`;
     return deletedAuthor;
 }
