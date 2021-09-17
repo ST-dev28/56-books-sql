@@ -127,23 +127,23 @@ Author.findByLastname = async (connection, authorLastname) => {
  */
 Author.updatePropertyById = async (connection, authorId, propertyName, propertyValue) => {
     //VALIDATIONS
-    if (!Validation.IDisValid(authorId)) {
-        return `Autoriaus ID turi buti teigiamas sveikasis skaicius!`;
+    const columns = ['id', 'firstname', 'lastname'];
+    //Tikriname ar propertyName yra viena is lenteles reiksmiu.
+    if (!columns.includes(propertyName)) {
+        return "ERROR: such property name doesn't exist"
     }
-    if (!Validation.isText(propertyName)) {
-        return `Parametras turi buti ne tuscias tekstas!`;
-    }
-    if (!Validation.isText(propertyValue)) {
-        return `Parametras turi buti ne tuscias tekstas!`;
+    //Jeigu propertyName yra ID tai value yra skaicius.
+    if (propertyName === columns[0] && !Validation.IDisValid(propertyValue)) {
+        return console.error('ERROR: invalid ID entry')
     }
 
-    /*if (typeof authorId !== 'number') {
-       return `Autoriaus ID turi buti skaicius!`
-   }
-   if (typeof propertyName !== 'string' ||
-       typeof propertyValue !== 'string') {
-       return `Parametras turi buti tekstas!`
-   }*/
+    //Jeigu firsname/lastname, tai tekstas value.
+    if (propertyName === 'firstname' && !Validation.isText(propertyValue)) {
+        return console.error('ERROR: invalid firstname string entry.')
+    }
+    if (propertyName === 'lastname' && !Validation.isText(propertyValue)) {
+        return console.error('ERROR: invalid lastname string entry.')
+    }
 
     const sql = 'UPDATE authors SET ' + propertyName + ' = "' + propertyValue + '" WHERE authors.id =' + authorId;
     [rows] = await connection.execute(sql);
@@ -160,13 +160,13 @@ Author.updatePropertyById = async (connection, authorId, propertyName, propertyV
 Author.delete = async (connection, authorId) => {
     //VALIDATIONS
     if (!Validation.IDisValid(authorId)) {
-        return `Autoriaus ID turi buti teigiamas sveikasis skaicius!`;
+        return console.error('ERROR: invalid ID entry.')
     }
-
-    const sql = 'DELETE FROM `authors` WHERE `id` = ' + authorId;
-    [rows] = await connection.execute(sql);
-    const deletedAuthor = `Author with ID "${authorId}" has been removed from the list.`;
-    return deletedAuthor;
+    else {
+        const sql = 'DELETE FROM authors WHERE authors.id =' + authorId;
+        [rows] = await connection.execute(sql);
+        const deletedAuthor = `Author with ID "${authorId}" has been removed from the list.`;
+        return deletedAuthor;
+    }
 }
-
 module.exports = Author;
