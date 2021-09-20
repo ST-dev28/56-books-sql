@@ -39,8 +39,9 @@ class Validation {
         if (typeof param !== 'number' ||
             !isFinite(param) ||
             param < 1 ||
-            param > 4 &&
-            param % 1 !== 0) {
+            param > 2021 ||
+            param % 1 !== 0 ||
+            param.toString(10).length !== 4) {
             return false
         }
         return true
