@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2021 at 11:31 AM
+-- Generation Time: Sep 25, 2021 at 11:45 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -20,30 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `books`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `authors`
---
-
-CREATE TABLE `authors` (
-  `id` int(10) NOT NULL,
-  `firstname` char(20) COLLATE utf8_swedish_ci NOT NULL,
-  `lastname` char(20) COLLATE utf8_swedish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
-
---
--- Dumping data for table `authors`
---
-
-INSERT INTO `authors` (`id`, `firstname`, `lastname`) VALUES
-(2, 'Mike', 'Pukuotukas'),
-(3, 'Onyte', 'Jonaitis'),
-(4, 'Ona', 'Onaityte'),
-(5, 'Paula', 'Paulaviciute'),
-(6, 'Zigmas', 'Zigmutis'),
-(7, 'Nezinomas', 'Anonimas');
 
 -- --------------------------------------------------------
 
@@ -75,12 +51,6 @@ INSERT INTO `books` (`id`, `authorId`, `title`, `releaseYear`) VALUES
 --
 
 --
--- Indexes for table `authors`
---
-ALTER TABLE `authors`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `books`
 --
 ALTER TABLE `books`
@@ -89,12 +59,6 @@ ALTER TABLE `books`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `authors`
---
-ALTER TABLE `authors`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `books`
